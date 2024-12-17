@@ -13,5 +13,9 @@ $.get('http://localhost:1234/api/productos', function(data) {
         $('#tablaProductos tbody').append(fila); 
     });
 }).fail(function() {
-    alert('Error al cargar los productos');
+    Swal.fire({
+        icon: 'error',
+        text: "Error al cargar los datos",
+        confirmButtonText: 'Aceptar'
+    });
 });
