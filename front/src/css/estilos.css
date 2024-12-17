@@ -16,3 +16,13 @@ body{
 #tablaProductos th{
     background-color: bisque;
 }
+
+#formNuevoProducto {
+    text-align: start;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.swal2-cancel{
+    background-color: red;
+}

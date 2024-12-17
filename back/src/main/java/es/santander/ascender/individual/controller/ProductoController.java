@@ -29,6 +29,9 @@ public class ProductoController {
         productos.put(1l, new Producto(1, "Producto A", "Descripción A", 100.0f, 10));
         productos.put(2l, new Producto(2, "Producto B", "Descripción B", 150.0f, 0));
         productos.put(3l, new Producto(3, "Producto C", "Descripción C", 200.0f, 5));
+        productos.put(4l, new Producto(4, "Producto D", "Descripción D", 50.0f, 10));
+        productos.put(5l, new Producto(5, "Producto E", "Descripción E", 150.0f, 0));
+        productos.put(6l, new Producto(6, "Producto F", "Descripción F", 20.0f, 20));
     }
 
 
