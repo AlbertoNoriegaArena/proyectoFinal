@@ -1,5 +1,3 @@
-
-
 // Solicitud GET con todos los productos
 $.get('http://localhost:1234/api/productos', function(data) {
     
@@ -9,8 +7,12 @@ $.get('http://localhost:1234/api/productos', function(data) {
             <td>${producto.descripcion}</td>
             <td>${producto.cantidad}</td>
             <td>${producto.precio}</td>
+            <td> <button type="button"  class="btn btn-primary VerProducto"> Ver Producto </button> </td> 
         </tr>`;
         $('#tablaProductos tbody').append(fila); 
+
+        // Inicializar DataTables para la tabla
+        $('#tablaProductos').DataTable();
     });
 }).fail(function() {
     Swal.fire({

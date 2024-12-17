@@ -1,0 +1,18 @@
+body{
+    margin: 20px;
+}
+
+#tablaProductos{
+    border-collapse: collapse;
+    border: 3px solid black;
+    text-align: center;
+}
+
+#tablaProductos td , #tablaProductos th{
+    border: 2px solid black;
+    padding: 10px
+}
+
+#tablaProductos th{
+    background-color: bisque;
+}

@@ -11,24 +11,39 @@
     <script src="javascript/index.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
 </head>
 
 <body>
-    <h1>Lista de Productos</h1>
-    
-    <table id="tablaProductos">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-            </tr>
-        </thead>
-        <tbody>
-            
-        </tbody>
-    </table>
+
+    <header></header>
+
+    <div>
+        <button type="button" class="agregarProducto btn btn-success"> <span> <i class="fas fa-cart-plus"></i> Nuevo producto </span> </button>
+    </div>
+
+    <div class="contenidoTabla">
+
+        <h1>Listado de productos</h1>
+
+        <table id="tablaProductos" class="display">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+    </div>
 </body>
 
 </html>
