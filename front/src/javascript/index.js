@@ -1,0 +1,1 @@
+$.get('http://localhost:1234/api/productos');
