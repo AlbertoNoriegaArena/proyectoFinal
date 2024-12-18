@@ -198,11 +198,13 @@ function cargarTablaProductos() {
     $.get('http://localhost:1234/api/productos', function (data) {
         // Llenar la tabla con los datos obtenidos
         data.forEach(function (producto) {
+
+            let precioFormateado = parseFloat(producto.precio).toFixed(2);
             let fila = `<tr>
                 <td>${producto.nombre}</td>
                 <td>${producto.descripcion}</td>
                 <td>${producto.cantidad}</td>
-                <td>${producto.precio}</td>
+                <td>${precioFormateado}</td>
                 <td> <button type="button" class="btn btn-primary verProducto" data-id="${producto.id}">Ver Producto</button> </td> 
                 <td> <button type="button" class="btn btn-danger borrarProducto" data-id="${producto.id}">Borrar</button> </td> 
                 <td> <button type="button" class="btn btn-info comprarProducto" data-id="${producto.id}">Comprar</button></td> 

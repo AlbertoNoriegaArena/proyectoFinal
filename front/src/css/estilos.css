@@ -14,6 +14,7 @@ body{
 }
 
 #tablaProductos th{
+    text-align: center;
     background-color: bisque;
 }
 
