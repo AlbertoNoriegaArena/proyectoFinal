@@ -293,7 +293,7 @@ function cargarTablaProductos() {
             "columnDefs": [
                 {
                     "targets": [0],  // Columna 0 (nombre del producto)
-                    "width": "20%"    // Definir el ancho al 20%
+                    "width": "25%"    // Definir el ancho al 20%
                 },
                 {
                     "targets": [1],  // Columna 1 (descripción)
@@ -309,7 +309,7 @@ function cargarTablaProductos() {
                 },
                 {
                     "targets": [4, 5, 6], // Columnas de los botones
-                    "width": "10%"    // Definir el ancho al 10% para las columnas de los botones
+                    "width": "5%"    // Definir el ancho al 10% para las columnas de los botones
                 }
             ]
         });
