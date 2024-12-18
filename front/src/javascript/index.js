@@ -253,9 +253,11 @@ function cargarTablaProductos() {
                 <td>${producto.descripcion}</td>
                 <td>${producto.cantidad}</td>
                 <td>${precioFormateado}</td>
-                <td> <button type="button" class="btn btn-primary verProducto" data-id="${producto.id}">Ver Producto</button> </td> 
-                <td> <button type="button" class="btn btn-danger borrarProducto" data-id="${producto.id}">Borrar</button> </td> 
-                <td> <button type="button" class="btn btn-info comprarProducto" data-id="${producto.id}">Comprar</button></td> 
+                <td>
+                    <button type="button" class="btn btn-primary verProducto" data-id="${producto.id}">  <i class="fas fa-eye"></i> Ver</button>
+                    <button type="button" class="btn btn-danger borrarProducto" data-id="${producto.id}"> <i class="fas fa-trash"></i> Borrar </button>
+                    <button type="button" class="btn btn-info comprarProducto" data-id="${producto.id}"> <i class="fas fa-shopping-cart"></i> Comprar </button>
+                </td> 
             </tr>`;
             $('#tablaProductos tbody').append(fila);
         });
@@ -293,7 +295,7 @@ function cargarTablaProductos() {
             "columnDefs": [
                 {
                     "targets": [0],  // Columna 0 (nombre del producto)
-                    "width": "25%"    // Definir el ancho al 20%
+                    "width": "20%"    // Definir el ancho al 20%
                 },
                 {
                     "targets": [1],  // Columna 1 (descripción)
@@ -308,8 +310,8 @@ function cargarTablaProductos() {
                     "width": "10%"    // Definir el ancho al 15%
                 },
                 {
-                    "targets": [4, 5, 6], // Columnas de los botones
-                    "width": "5%"    // Definir el ancho al 10% para las columnas de los botones
+                    "targets": [4], // Columnas de los botones
+                    "width": "20%"    // Definir el ancho al 10% para las columnas de los botones
                 }
             ]
         });

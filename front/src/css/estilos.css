@@ -1,30 +1,53 @@
-body{
-    margin: 20px;
+header {
+    background: linear-gradient(to right, #9ecfee, #ff7e5f ); /* Gradiente de colores */
+    height: 20vh;
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
 }
 
-#tablaProductos{
+header * {
+    height: 25%;
+    margin: auto 0;
+}
+
+header img {
+    width: 200px;
+    height: 50px;
+}
+
+div.contenedor {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#tablaProductos {
     border-collapse: collapse;
     border: 3px solid black;
     text-align: center;
+    width: 100%;
 }
 
-#tablaProductos td , #tablaProductos th{
+#tablaProductos td,
+#tablaProductos th {
     border: 2px solid black;
     padding: 10px
 }
 
-#tablaProductos th{
+#tablaProductos th {
     text-align: center;
     background-color: bisque;
 }
 
-#tablaProductos .btn {
-    width: auto;        
-    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
-}
-
-#tablaProductos .btn {
-    min-width: 100px;   
+ #tablaProductos .btn {
+    min-width: 100px;
+    margin: 0 10px;
 }
 
 #formNuevoProducto {
@@ -33,6 +56,6 @@ body{
     font-weight: bolder;
 }
 
-.swal2-cancel{
+.swal2-cancel {
     background-color: red;
 }
