@@ -18,6 +18,15 @@ body{
     background-color: bisque;
 }
 
+#tablaProductos .btn {
+    width: auto;        
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+#tablaProductos .btn {
+    min-width: 100px;   
+}
+
 #formNuevoProducto {
     text-align: start;
     font-size: larger;

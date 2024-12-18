@@ -183,9 +183,57 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Botón comprar producto
+    $('#tablaProductos').on('click', '.comprarProducto', function () {
+        const productoId = $(this).data('id');
+        const productoNombre = $(this).closest('tr').find('td').first().text(); // Obtener el nombre del producto desde la tabla
+
+        // Mostrar un cuadro de confirmación para comprar el producto
+        Swal.fire({
+            title: `¿Estás seguro de comprar ${productoNombre}?`,
+            showCancelButton: true,
+            confirmButtonText: 'Sí, comprar',
+            cancelButtonText: 'Cancelar',
+            focusConfirm: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Realizar la solicitud POST para realizar la compra
+                $.ajax({
+                    url: `http://localhost:1234/api/productos/${productoId}/compra`,
+                    type: 'POST',
+                    success: function (datos) {
+                        // Cuando la compra se realiza, datos contiene la respuesta del servidor
+                        Swal.fire({
+                            icon: 'success',
+                            title: datos,
+                            confirmButtonText: 'Aceptar'
+                        });
+
+                        // Refrescar la tabla después de comprar el producto
+                        cargarTablaProductos();
+                    },
+                    error: function (xhr, status, error) {
+                        if (xhr.status === 400) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: xhr.responseText,
+                                confirmButtonText: 'Aceptar'
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error al comprar el producto',
+                                text: 'Hubo un problema al realizar la compra. Intenta nuevamente.',
+                                confirmButtonText: 'Aceptar'
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
 });
-
-
 
 function cargarTablaProductos() {
 
@@ -214,6 +262,8 @@ function cargarTablaProductos() {
 
         // Inicializar DataTable con los nuevos datos
         $('#tablaProductos').DataTable({
+            "destroy": true,
+            "responsive": true,
             "pageLength": 5, // paginación a 5
             "lengthMenu": [5, 10, 25],
             "language": {
@@ -240,6 +290,28 @@ function cargarTablaProductos() {
                     "sortDescending": ": activar para ordenar la columna de manera descendente"
                 }
             },
+            "columnDefs": [
+                {
+                    "targets": [0],  // Columna 0 (nombre del producto)
+                    "width": "20%"    // Definir el ancho al 20%
+                },
+                {
+                    "targets": [1],  // Columna 1 (descripción)
+                    "width": "30%"    // Definir el ancho al 30%
+                },
+                {
+                    "targets": [2],  // Columna 2 (cantidad)
+                    "width": "10%"    // Definir el ancho al 10%
+                },
+                {
+                    "targets": [3],  // Columna 3 (precio)
+                    "width": "10%"    // Definir el ancho al 15%
+                },
+                {
+                    "targets": [4, 5, 6], // Columnas de los botones
+                    "width": "10%"    // Definir el ancho al 10% para las columnas de los botones
+                }
+            ]
         });
     }).fail(function () {
         Swal.fire({
@@ -264,11 +336,11 @@ function crearFormularioProducto(producto = {}) {
                     </div>
                     <div class="my-4">
                         <label for="cantidad" class="form-label">Cantidad</label>
-                        <input type="number" id="cantidad" class="form-control" placeholder="Cantidad" value="${producto.cantidad || ''}">
+                        <input type="number" id="cantidad" class="form-control" placeholder="Cantidad" value="${producto.cantidad || 0}">
                     </div>
                     <div class="my-4">
                         <label for="precio" class="form-label">Precio</label>
-                        <input type="number" id="precio" class="form-control" placeholder="Precio en €" value="${producto.precio || ''}">
+                        <input type="number" id="precio" class="form-control" placeholder="Precio en €" value="${producto.precio || 0}">
                     </div>
                 </form>
     `;
