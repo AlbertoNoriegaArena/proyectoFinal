@@ -107,6 +107,16 @@ public class OperacionesProductos {
         }
     }
 
+    public Map<Long, Producto> listarProductosDisponibles() {
+        Map<Long, Producto> productosDisponibles = new HashMap<>();
+        for (Map.Entry<Long, Producto> entry : ListaProductos.entrySet()) {
+            if (entry.getValue().getCantidad() > 0) {
+                productosDisponibles.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return productosDisponibles;
+    }
+
     public Map<Long, Producto> getProductos() {
         return ListaProductos;
     }

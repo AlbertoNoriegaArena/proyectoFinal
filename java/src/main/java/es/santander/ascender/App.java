@@ -25,6 +25,11 @@ public class App {
         System.out.println("Listado de productos:");
         mostrarProductos(ListaProductos.getProductos());
 
+        // Listar productos disponibles
+        Map<Long, Producto> productosDisponibles = ListaProductos.listarProductosDisponibles();
+        System.out.println("\nListado de productos en stock: ");
+        mostrarProductos(productosDisponibles);
+
         // Comprar 3 unidades del producto 1
         System.out.println("\nComprando 3 unidades de Producto 1");
         ListaProductos.comprarProductoCantidad(1, 3); // Aquí, el id debería ser el correspondiente al producto1
@@ -61,11 +66,14 @@ public class App {
         }
 
         System.out.println("\nAgregamos nuevo producto: Impresora");
-        ListaProductos.agregarProducto(new Producto(6, "Impresora", "fefwefwff", 100, 100));
+        ListaProductos.agregarProducto(new Producto(6, "Impresora", "fefwefwff", 10, 100));
 
         // Mostrar productos agregados
         System.out.println("\nListado de productos:");
         mostrarProductos(ListaProductos.getProductos());
+
+        System.out.println("\nListado de productos en stock: ");
+        mostrarProductos(ListaProductos.listarProductosDisponibles());
     }
 
     // Método auxiliar para mostrar productos

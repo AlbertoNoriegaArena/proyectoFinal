@@ -1,8 +1,11 @@
 package es.santander.ascender;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -125,5 +128,20 @@ public class OperacionesProductosTest {
 
         // Id que no existe
         assertThrows(NoSuchElementException.class, () -> ListaProductos.verProducto(10)); 
+    }
+
+    @Test
+    public void testListarProductosDisponibles() {
+        // Obtener productos disponibles
+        Map<Long, Producto> productosDisponibles = ListaProductos.listarProductosDisponibles();
+
+        // De los dos prodcutos solo el 1 está en stock
+        assertEquals(1, productosDisponibles.size()); 
+
+        // Verificar que producto2 no está en la lista (porque tiene 0 cantidad)
+        assertFalse(productosDisponibles.containsValue(producto2));
+
+        // Verificar que producto1 está en la lista
+        assertTrue(productosDisponibles.containsValue(producto1));
     }
 }
