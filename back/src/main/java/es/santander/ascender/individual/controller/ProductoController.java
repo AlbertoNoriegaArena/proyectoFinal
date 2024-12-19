@@ -115,6 +115,28 @@ public class ProductoController {
         return ResponseEntity.ok("Compra realizada con éxito. Producto: " + producto.getNombre());
     }
 
+    @PostMapping("/{id}/compraProducto")
+    public ResponseEntity<String> comprarProductos(@PathVariable Long id, @Valid @RequestBody int cantidad) {
+        Producto producto = productos.get(id);
+
+        if (producto == null) {
+            return ResponseEntity.notFound().build();
+            
+        }
+
+        if (cantidad <= 0) {
+            return ResponseEntity.badRequest().body("La cantidad debe ser mayor a 0.");
+        }
+
+        if (cantidad > producto.getCantidad() ) {
+            return ResponseEntity.badRequest().body("Las cantidad introducida no está disponible en stock.");
+        }
+
+        producto.setCantidad(producto.getCantidad() - cantidad);
+
+        return ResponseEntity.ok("Compra realizada con éxito. Producto: " + producto.getNombre());
+    }
+
 
     public Map<Long, Producto> getProductos() {
         return productos;
