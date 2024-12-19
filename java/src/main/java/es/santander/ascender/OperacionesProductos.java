@@ -8,12 +8,12 @@ public class OperacionesProductos {
 
     private Map<Long, Producto> ListaProductos = new HashMap<>();
 
-    public void agregarProducto(long id, Producto producto) {
-        if (ListaProductos.containsKey(id)) {
-            throw new IllegalArgumentException("El producto con el ID " + id + " ya existe");
-        } else {
-            ListaProductos.put(id, producto);
-        }
+    public void agregarProducto(Producto producto) {
+        // Si el mapa está vacío, asignamos el primer id como 1
+        long nuevoId = ListaProductos.isEmpty() ? 1 : ListaProductos.keySet().stream().max(Long::compare).get() + 1;
+    
+        // Agregar el producto con el nuevo id generado
+        ListaProductos.put(nuevoId, producto);
     }
 
     public Producto verProducto(long id) {
@@ -81,4 +81,38 @@ public class OperacionesProductos {
             }
         }
     }
+
+    public void comprarProductoCantidad(long id, int cantidadAComprar) {
+        if (!ListaProductos.containsKey(id)) {
+            throw new NoSuchElementException("No se encontró el producto con ID: " + id);
+        } else {
+            Producto productoAComprar = ListaProductos.get(id);
+            if (productoAComprar.getCantidad() ==0 ) {
+                throw new IllegalArgumentException("No puedes comprar un producto del que no hay stock");
+            } else if (productoAComprar.getCantidad() < cantidadAComprar ) {
+                throw new IllegalArgumentException("No hay suficiente stock. Solo hay disponibles " + productoAComprar.getCantidad() + " unidades" );
+            } else {
+                productoAComprar.setCantidad(productoAComprar.getCantidad() - cantidadAComprar);
+            }
+        }
+    }
+
+    public void reponerUnidades(long id, int cantidadAReponer) {
+        if (!ListaProductos.containsKey(id)) {
+            throw new NoSuchElementException("No se encontró el producto con ID: " + id);
+        } else {
+            Producto productoAReponer = ListaProductos.get(id);
+            
+            productoAReponer.setCantidad(productoAReponer.getCantidad() + cantidadAReponer);
+        }
+    }
+
+    public Map<Long, Producto> getProductos() {
+        return ListaProductos;
+    }
+
+    public void setProductos(Map<Long, Producto> productos) {
+        this.ListaProductos = productos;
+    }
+
 }
