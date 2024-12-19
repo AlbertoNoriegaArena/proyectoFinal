@@ -188,20 +188,59 @@ $(document).ready(function () {
     $('#tablaProductos').on('click', '.comprarProducto', function () {
         const productoId = $(this).data('id');
         const productoNombre = $(this).closest('tr').find('td').first().text(); // Obtener el nombre del producto desde la tabla
+        const productoCantidad = $(this).closest('tr').find('td:nth-child(3)').text();
+        const productoPrecio = parseFloat($(this).closest('tr').find('td:nth-child(4)').text()); // Obtener el precio del producto y convertirlo a número
+
+        // Si la cantidad es 0, mostrar mensaje de fuera de stock
+        if (parseInt(productoCantidad) === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: `Producto fuera de stock`,
+                text: `Lo sentimos, ${productoNombre} no está disponible en este momento.`,
+                confirmButtonText: 'Aceptar'
+            });
+            return; // Salir de la función para no mostrar el rango
+        }
+
 
         // Mostrar un cuadro de confirmación para comprar el producto
         Swal.fire({
-            title: `¿Estás seguro de comprar ${productoNombre}?`,
+            title: `Comprar ${productoNombre}`,
+            html: `
+                <div>
+                    <label for="cantidad">Selecciona la cantidad a comprar (${productoCantidad} unidades en stock)</label>
+                    <input id="cantidadRange" type="range" min="0" max="${productoCantidad}" value="0" class="swal2-input" 
+                oninput="document.getElementById('valorRango').innerText = this.value; 
+                    document.getElementById('coste').innerText = (this.value * ${productoPrecio}).toFixed(2);">
+                    <p>Cantidad seleccionada: <span id="valorRango">0</span></p>
+                    <p>Coste total: <span id="coste">0.00</span> €</p>
+                </div>
+            `,
             showCancelButton: true,
             confirmButtonText: 'Sí, comprar',
             cancelButtonText: 'Cancelar',
-            focusConfirm: false
+            focusConfirm: false,
+            preConfirm: () => {
+                const cantidad = parseInt(document.getElementById('cantidadRange').value);
+
+                if (cantidad === 0) {
+                    Swal.showValidationMessage('Por favor, selecciona al menos 1 unidad.');
+                    return false;
+                }
+                return cantidad;
+
+            }
         }).then((result) => {
             if (result.isConfirmed) {
+
+                const cantidadSeleccionada = result.value;
+
                 // Realizar la solicitud POST para realizar la compra
                 $.ajax({
                     url: `http://localhost:1234/api/productos/${productoId}/compra`,
                     type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(cantidadSeleccionada), // Enviar la cantidad seleccionada en el cuerpo de la solicitud
                     success: function (datos) {
                         // Cuando la compra se realiza, datos contiene la respuesta del servidor
                         Swal.fire({
