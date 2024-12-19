@@ -105,6 +105,13 @@ public class OperacionesProductosTest {
         assertEquals("Descripción a editar", productoActualizado.getDescripcion());
         assertEquals(5, productoActualizado.getCantidad());
         assertEquals(80.0f, productoActualizado.getPrecio(), 0.01f);
+
+        assertThrows(IllegalArgumentException.class, () -> ListaProductos.editarProducto(2, new Producto(2, null, "Des", 10, 100.0f))); 
+        assertThrows(IllegalArgumentException.class, () -> ListaProductos.editarProducto(2, new Producto(2, "Producto", null, 10, 100.0f))); 
+        assertThrows(IllegalArgumentException.class, () -> ListaProductos.editarProducto(2, new Producto(2, "Producto", "Des", -1, 100.0f))); 
+        assertThrows(IllegalArgumentException.class, () -> ListaProductos.editarProducto(2, new Producto(2, "Producto", "Des", 10, -1))); 
+
+
     }
 
     @Test

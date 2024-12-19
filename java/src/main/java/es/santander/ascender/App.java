@@ -24,7 +24,7 @@ public class App {
         // Comprar 3 unidades del producto 1
         System.out.println("\nComprando 3 unidades de Producto 1");
         ListaProductos.comprarProductoCantidad(1, 3); // Aquí, el id debería ser el correspondiente al producto1
-        System.out.println("Cantidad del p roducto 1 después de la compra: " + ListaProductos.verProducto(1).getCantidad());
+        System.out.println("Cantidad del producto 1 después de la compra: " + ListaProductos.verProducto(1).getCantidad());
 
         // Edición del producto 2 
         System.out.println("\nEditando Producto 2");
@@ -60,7 +60,7 @@ public class App {
     private static void mostrarProductos(Map<Long, Producto> productos) {
         for (Map.Entry<Long, Producto> entry : productos.entrySet()) {
             Producto producto = entry.getValue();
-            System.out.println("ID: " + entry.getKey() + ", Nombre: " + producto.getNombre() + ", Precio: "
+            System.out.println("ID: " + entry.getKey() + ", Nombre: " + producto.getNombre() + ", Descripción: " + producto.getDescripcion() + ", Precio: "
                     + producto.getPrecio() + ", Cantidad: " + producto.getCantidad());
         }
     }
