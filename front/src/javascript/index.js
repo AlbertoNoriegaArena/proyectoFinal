@@ -208,20 +208,24 @@ $(document).ready(function () {
             title: `Comprar ${productoNombre}`,
             html: `
                 <div>
-                    <label for="cantidad">Selecciona la cantidad a comprar (${productoCantidad} unidades en stock)</label>
-                    <input id="cantidadRange" type="range" min="0" max="${productoCantidad}" value="0" class="swal2-input" 
-                oninput="document.getElementById('valorRango').innerText = this.value; 
-                    document.getElementById('coste').innerText = (this.value * ${productoPrecio}).toFixed(2);">
-                    <p>Cantidad seleccionada: <span id="valorRango">0</span></p>
-                    <p>Coste total: <span id="coste">0.00</span> €</p>
+                <label for="cantidad">Selecciona la cantidad a comprar (${productoCantidad} unidades en stock)</label>
+                <div class="inputCantidadSeleccionada">
+                <input id="cantidadRange" type="range" min="0" max="${productoCantidad}" value="0" class="swal2-input" 
+                    oninput="updateValues(this.value, ${productoPrecio})">
+                <input id="cantidadInput" type="number" min="0" max="${productoCantidad}" value="0" class="swal2-input"
+                    oninput="updateValues(this.value, ${productoPrecio})">
+                    </div>
+                <p>Cantidad seleccionada: <span id="valorRango">0</span></p>
+                <p>Coste total: <span id="coste">0.00</span></p>
                 </div>
             `,
             showCancelButton: true,
             confirmButtonText: 'Sí, comprar',
             cancelButtonText: 'Cancelar',
             focusConfirm: false,
+            width: 'auto', // Asegura que el modal no sea más grande de lo necesario
             preConfirm: () => {
-                const cantidad = parseInt(document.getElementById('cantidadRange').value);
+                const cantidad = document.getElementById('cantidadInput').value;
 
                 if (cantidad === 0) {
                     Swal.showValidationMessage('Por favor, selecciona al menos 1 unidad.');
@@ -293,9 +297,9 @@ function cargarTablaProductos() {
                 <td>${producto.cantidad}</td>
                 <td>${precioFormateado}</td>
                 <td>
-                    <button type="button" class="btn btn-primary verProducto" data-id="${producto.id}">  <i class="fas fa-eye"></i> Ver</button>
-                    <button type="button" class="btn btn-danger borrarProducto" data-id="${producto.id}"> <i class="fas fa-trash"></i> Borrar </button>
-                    <button type="button" class="btn btn-info comprarProducto" data-id="${producto.id}"> <i class="fas fa-shopping-cart"></i> Comprar </button>
+                    <button type="button" class="btn btn-primary verProducto" data-id="${producto.id}">  <i class="fas fa-eye"></i></button>
+                    <button type="button" class="btn btn-danger borrarProducto" data-id="${producto.id}"> <i class="fas fa-trash"></i></button>
+                    <button type="button" class="btn btn-info comprarProducto" data-id="${producto.id}"> <i class="fas fa-shopping-cart"></i></button>
                 </td> 
             </tr>`;
             $('#tablaProductos tbody').append(fila);
@@ -407,4 +411,16 @@ function validarFormulario(nombre, descripcion, cantidad, precio) {
         return 'El precio debe ser un número positivo';
     }
     return true; // Si pasa todas las validaciones, retorna true
+}
+
+// Función para actualizar tanto el rango como el input numérico de comprar
+function updateValues(cantidadSeleccionada, productoPrecio) {
+
+    document.getElementById('cantidadRange').value = cantidadSeleccionada;
+    document.getElementById('cantidadInput').value = cantidadSeleccionada;
+
+    document.getElementById('valorRango').innerText = cantidadSeleccionada;
+
+    const coste = (cantidadSeleccionada * productoPrecio).toFixed(2);
+    document.getElementById('coste').innerText = `${coste} €`;
 }

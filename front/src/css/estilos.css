@@ -59,3 +59,14 @@ div.contenedor {
 .swal2-cancel {
     background-color: red;
 }
+
+.inputCantidadSeleccionada {
+    display: flex;              
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+span#coste{
+    font-weight: bold;
+}
