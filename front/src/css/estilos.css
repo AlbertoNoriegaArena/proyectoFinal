@@ -27,6 +27,11 @@ div.contenedor {
     justify-content: space-evenly;
 }
 
+.agregarProducto{
+    padding: 15px;
+    font-size: 1.5em;
+}
+
 #tablaProductos {
     border-collapse: collapse;
     border: 3px solid black;
